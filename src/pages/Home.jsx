@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import HeroSlider from '../components/HeroSlider';
 import MovieCard from '../components/MovieCard';
 import { NOW_PLAYING, COMING_SOON } from '../data/movies';
-import imax from '../../public/imax.jpg'
+import imax from '/IMAX.jpg'
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
