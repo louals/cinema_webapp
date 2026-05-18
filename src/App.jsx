@@ -1,32 +1,41 @@
-import React, { useState } from 'react';
-import reactLogo from '/react.png';
-import viteLogo from '/vite.svg';
-import tailwindLogo from '/tailwind.png'; // you need a Tailwind logo SVG here
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Movies from './pages/Movies';
+import MovieDetail from './pages/MovieDetail';
+import Showtimes from './pages/Showtimes';
+import Experiences from './pages/Experiences';
+import SeatSelection from './pages/SeatSelection';
+
+const NotFound = () => (
+  <div className="min-h-screen pt-32 pb-20 flex flex-col items-center justify-center text-center px-4 bg-cinema-black">
+    <h1 className="text-5xl font-display font-black mb-6 gradient-text">404 - Page Not Found</h1>
+    <p className="text-xl text-gray-400 max-w-2xl">The page you are looking for does not exist or has been moved.</p>
+  </div>
+);
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      <div className="flex gap-6 mb-8">
-        <img src={reactLogo} className="w-24 h-24 " alt="React Logo" />
-        <img src={viteLogo} className="w-24 h-24" alt="Vite Logo" />
-        <img src={tailwindLogo} className="w-32 h-20 mt-3" alt="Tailwind Logo" />
+    <Router>
+      <div className="flex flex-col min-h-screen bg-cinema-black text-white">
+        <Navbar />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/movies/:id" element={<MovieDetail />} />
+            <Route path="/showtimes" element={<Showtimes />} />
+            <Route path="/book/:id/seats" element={<SeatSelection />} />
+            <Route path="/experiences" element={<Experiences />} />
+            {/* Catch all */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
       </div>
-
-      <h1 className="text-4xl font-bold mb-4">React + Vite + Tailwind Starter</h1>
-      <p className="mb-4 text-lg">Edit <code>App.jsx</code> and save to reload.</p>
-
-      <div className="flex gap-4 items-center">
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </div>
-
-    </div>
+    </Router>
   );
 }
 
